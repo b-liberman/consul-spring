@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: csct
+  cloud:
+    consul:      
+      host: localhost
+      port: 8500
+      config:
+        enabled: true
+        prefix: configuration
+        defaultContext: apps
+        watch:
+          enabled: true
+          delay: 1000
+          wait-time: 1
+        format: key-value
+    vault:
+      token: 356ab4d8-765c-8491-53f5-d58c8a279faf
+      scheme: http
+      host: 127.0.0.1
+      port: 8200
+      application-name: key1,key2,key3,nkey
+      generic:
+        backend: csct
