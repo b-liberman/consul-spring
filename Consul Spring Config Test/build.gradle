@@ -55,3 +55,23 @@ dependencyManagement {
 		mavenBom "org.springframework.cloud:spring-cloud-stream-dependencies:${springCloudStreamVersion}"
 	}
 }
+
+eclipse {
+    classpath {
+        file.whenMerged { classpath ->
+            def iterator = classpath.entries.iterator()
+            while(iterator.hasNext()) {
+            	def cpe = iterator.next()
+            	if(cpe instanceof org.gradle.plugins.ide.eclipse.model.SourceFolder) {
+            		if(cpe.path.contains('test/java')) {
+	            		cpe.setOutput('build/classes/java/test/')
+	            	} else if(cpe.path.contains('main/resources')) {
+	            		cpe.setOutput('build/resources/main/')
+	            	} else {
+	            		cpe.setOutput('build/classes/java/main/')
+	            	}
+            	}
+            }
+        }
+    }
+}
